@@ -6,7 +6,16 @@ try {
   const type = core.getInput('type')
   const content = core.getInput('content')
 
-  axios.post(url, { msgtype: type, content })
+  axios
+    .post(url, { msgtype: type, content })
+    .then(res => {
+      console.log('res', res)
+      core.setOutput('res', res)
+    })
+    .catch(err => {
+      console.log('err', err)
+      core.setOutput('err', err)
+    })
 } catch (error) {
   core.setFailed(error.message)
 }
